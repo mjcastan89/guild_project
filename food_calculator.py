@@ -13,6 +13,9 @@ def calc_food_order():
   """Calculates the amount of dog food to order in lbs based of user input. The user inputs 
   include number of small, medium and large dogs respectively plus the amount of food leftover.
   This function defaults to calculating 20% more than necessary. Just in case.
+  
+  :return: Amount of dog food to order in lbs
+  :rtype: float
   """
   print("How many small dogs are present (as integer)? ")
   num_small_dogs = int(input())
@@ -24,31 +27,18 @@ def calc_food_order():
   leftover_food = int(input())
   
   print("Calculating next month's food order...")
-  small_dog_food = _calc_dog_food(num_small_dogs, dog_food_ratio_enum.small.value)
-  medium_dog_food = _calc_dog_food(num_medium_dogs, dog_food_ratio_enum.medium.value)
-  large_dog_food = _calc_dog_food(num_large_dogs, dog_food_ratio_enum.large.value)
-  food_needed = (small_dog_food + medium_dog_food + large_dog_food)
-  
-  print(f"Amount of dog food to order is: {(food_needed - leftover_food)*1.2} lbs.")
+  small_dog_food = num_small_dogs * dog_food_ratio_enum.small.value
+  medium_dog_food = num_medium_dogs * dog_food_ratio_enum.medium.value
+  large_dog_food = num_large_dogs * dog_food_ratio_enum.large.value
+  food_needed = (small_dog_food + medium_dog_food + large_dog_food) * 1.2
 
-def _calc_dog_food(num_dogs, dog_food_ratio):
-  """Returns the amount of dog food to order per number of dogs and dog size in lbs.
-  
-  :param num_dogs: Number of dogs to calculate food for
-  :type num_dogs: int
-  :param dog_food_ratio_enum: Dog food ratio
-  :type dog_food_ratio_enum: int
-  :return: Calculated amount of dog in lbs
-  :rtype: int
-  :raises ValueError: If values provided are not ints
-  """
-  if not isinstance(num_dogs, int):
-    raise ValueError(f"The value given for 'num_dogs' is not an integer; The value given was {num_dogs}.")
-  breakpoint()
-  if not isinstance(dog_food_ratio, int):
-    raise ValueError(f"The value given for 'dog_food_ratio' is not an integer; The value given was {dog_food_ratio}.")
-    
-  return num_dogs * dog_food_ratio
+  if food_needed <= leftover_food:
+      print(f"Current food need is: {food_needed} lbs and there are still {leftover_food} lbs leftover. No need to order more dog food.")
+      return 0
+
+  food_to_order = food_needed - leftover_food
+  print(f"Amount of dog food to order is: {food_to_order} lbs.")
+  return food_to_order
 
 if __name__ == "__main__":
     calc_food_order()
