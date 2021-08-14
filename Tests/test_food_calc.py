@@ -1,25 +1,23 @@
 from unittest import mock
-import calc_food
+from food_calculator import calc_food_order
 
-@mock.patch("calc_food.input", create=True)
-def test_calc_food_order_valid(mock_input):
-  mock_input.side_effect = [3, 2, 1, 5]
+def test_calc_food_order_valid():
+  assert calc_food_order(5, 3, 7, 17) == 363.6
   
-  assert calc_food.calc_food_order() == (3*10 + 2*20 + 1*30 - 5)*1.2
-  mock_calc.assert_called_with(3, 10)
-  mock_calc.assert_called_with(2, 20)
-  mock_calc.assert_called_with(1, 30)
-  
-@mock.patch("calc_food.input", create=True)
-def test_calc_food_order_invalid_input(mock_input):
-  mock_input.side_effect = [True]
+def test_calc_food_order_ValueError():
+  with pytest.raises(ValueError):
+    calc_food_order(-5, 3, 7, 17)
   
   with pytest.raises(ValueError):
-    calc_food.calc_food_order()
+    calc_food_order(5, True, 7, 17)
     
-@mock.patch("calc_food.input", create=True)
-def test_calc_food_order_no_order(mock_input):
-  mock_input.side_effect = [1, 0, 0, 12, 1, 0, 0, 13]
+  with pytest.raises(ValueError):
+    calc_food_order(5, 3, 'seven', 17)
+    
+  with pytest.raises(ValueError):
+    calc_food_order(5, 3, 7, False)
+    
+def test_calc_food_order_no_order():
+  assert calc_food_order(1, 0, 0, 10) == 0
   
-  assert calc_food.calc_food_order() == 0
-  assert calc_food.calc_food_order() == 0
+  assert calc_food_order(1, 0, 0, 11) == 0
