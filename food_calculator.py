@@ -1,6 +1,7 @@
 """Calculates the amount of dog food to order based on user inputs of dogs and food available."""
 from enum import Enum
 
+max_dogs = 30
 
 class dog_food_ratio_enum(Enum):
   """Enum for the dog food ratio to size of dog"""
@@ -21,20 +22,27 @@ def calc_food_order(num_small_dogs , num_medium_dogs, num_large_dogs, leftover_f
   :param num_large_dogs: Number of large dogs to calculate food for
   :type num_large_dogs: int
   :param leftover_food: Amount of food leftover in lbs
-  :type leftover_food: int
+  :type leftover_food: float
   :return: Amount of dog food to order in lbs
   :rtype: float
   """
-  if not isinstance(num_small_dogs, int) or num_small_dogs < 0:
-    raise ValueError(f"The value provided for small dogs is not a valid int; value provided was {num_small_dogs}.")
-  if not isinstance(num_medium_dogs, int) or num_medium_dogs < 0:
-    raise ValueError(f"The value provided for medium dogs is not a valid int; value provided was {num_medium_dogs}.")
-  if not isinstance(num_large_dogs, int) or num_large_dogs < 0:
-    raise ValueError(f"The value provided for large dogs is not a valid int; value provided was {num_large_dogs}.")
-  if not isinstance(leftover_food, int) or leftover_food < 0:
-    raise ValueError(f"The value provided for leftover food is not a valid int; value provided was {leftover_food}.")
-  if sum([num_small_dogs, num_medium_dogs, num_large_dogs]) > 30:
-    raise ValueError(f"The total number of dogs is greater than 30; Shelter is overbooked by {sum([num_small_dogs, num_medium_dogs, num_large_dogs]) - 30}.")
+  if not isinstance(num_small_dogs, int) 
+    raise TypeError(f"The value provided for small dogs is not a valid int; value provided was {num_small_dogs}.")
+  if num_small_dogs < 0:
+    raise ValueError(f"The value provided for small dogs is less than 0; value provided was {num_small_dogs}.")
+  if not isinstance(num_medium_dogs, int) 
+    raise TypeError(f"The value provided for medium dogs is not a valid int; value provided was {num_medium_dogs}.")
+  if num_medium_dogs < 0:
+    raise ValueError(f"The value provided for medium dogs is less than 0; value provided was {num_medium_dogs}.")
+  if not isinstance(num_large_dogs, int) 
+    raise TypeError(f"The value provided for large dogs is not a valid int; value provided was {num_large_dogs}.")
+  if num_large_dogs < 0:
+    raise ValueError(f"The value provided for large dogs is less than 0; value provided was {num_large_dogs}.")
+  leftover_food = round(leftover_food, 1)
+  if leftover_food < 0:
+    raise ValueError(f"The value provided for leftover food is less than 0; value provided was {leftover_food}.")
+  if sum([num_small_dogs, num_medium_dogs, num_large_dogs]) > max_dogs:
+    raise ValueError(f"The total number of dogs is greater than {max_dogs}; Shelter is overbooked by {sum([num_small_dogs, num_medium_dogs, num_large_dogs]) - max_dogs}.")
   
   print("Calculating next month's food order...")
   small_dog_food = num_small_dogs * dog_food_ratio_enum.small.value
