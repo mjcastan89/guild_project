@@ -26,15 +26,15 @@ def calc_food_order(num_small_dogs , num_medium_dogs, num_large_dogs, leftover_f
   :return: Amount of dog food to order in lbs
   :rtype: float
   """
-  if not isinstance(num_small_dogs, int) 
+  if not isinstance(num_small_dogs, int):
     raise TypeError(f"The value provided for small dogs is not a valid int; value provided was {num_small_dogs}.")
   if num_small_dogs < 0:
     raise ValueError(f"The value provided for small dogs is less than 0; value provided was {num_small_dogs}.")
-  if not isinstance(num_medium_dogs, int) 
+  if not isinstance(num_medium_dogs, int):
     raise TypeError(f"The value provided for medium dogs is not a valid int; value provided was {num_medium_dogs}.")
   if num_medium_dogs < 0:
     raise ValueError(f"The value provided for medium dogs is less than 0; value provided was {num_medium_dogs}.")
-  if not isinstance(num_large_dogs, int) 
+  if not isinstance(num_large_dogs, int):
     raise TypeError(f"The value provided for large dogs is not a valid int; value provided was {num_large_dogs}.")
   if num_large_dogs < 0:
     raise ValueError(f"The value provided for large dogs is less than 0; value provided was {num_large_dogs}.")
