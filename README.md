@@ -15,7 +15,7 @@ It should be pretty simple to run the unit tests.
 pip install pytest`
 2. Run the pytests:
 `bash
-pytest <file path>/test_food_calc.py
+pytest <file path>/test_food_calc.py`
 
 ## Contributing
 Feel free to go crazy, but update those tests!!!
